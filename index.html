@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAIN ZADI — زين زادي | سوق متعدد التجار</title>
+    <!-- ربط ملف التنسيقات الخارجي -->
+    <link rel="stylesheet" href="style.css">
+    <!-- مكتبة الأيقونات FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- خط عربي فاخر (Cairo) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body class="zain-zadi-body">
+
+    <!-- حاوية التطبيق العامة -->
+    <div id="app-container" data-app-name="Zain Zadi">
+
+        <!-- ================================= 1. SPLASH SCREEN ================================= -->
+        <section id="view-splash" class="app-view active" data-view="splash">
+            <div class="splash-content">
+                <div class="logo-container" data-firebase-bind="platform-logo">
+                    <img src="" alt="زين زادي" data-logo-img>
+                    <h1>ZAIN ZADI — زين زادي</h1>
+                </div>
+                <p class="splash-slogan">تسوق أذكى ... لحياة أفضل</p>
+                <div class="loader-spinner"></div>
+            </div>
+        </section>
+
+        <!-- ================================= 2. LOGIN / REGISTER VIEW ================================= -->
+        <section id="view-auth" class="app-view" data-view="auth">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <h2>تسجيل الدخول / إنشاء حساب</h2>
+                </div>
+                <form id="auth-form" class="auth-form" data-firebase-action="auth">
+                    <div class="form-group">
+                        <label for="auth-phone">رقم الهاتف أو البريد الإلكتروني</label>
+                        <input type="text" id="auth-phone" name="identifier" required data-field="identifier">
+                    </div>
+                    <div class="form-group">
+                        <label for="auth-password">كلمة المرور</label>
+                        <input type="password" id="auth-password" name="password" required data-field="password">
+                    </div>
+                    <button type="submit" class="btn-gold" data-action="submit-auth">دخول</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ================================= CUSTOMER MAIN LAYOUT ================================= -->
+        <div id="customer-main-layout" class="layout-wrapper">
+            
+            <!-- Desktop Navigation Header -->
+            <header class="desktop-header" data-component="desktop-nav">
+                <div class="header-top container">
+                    <div class="brand-logo" data-firebase-bind="logo">
+                        <img src="" alt="زين زادي" data-brand-img>
+                        <span>زين زادي</span>
+                    </div>
+                    <div class="search-bar-container">
+                        <input type="search" placeholder="ابحث عن منتج، متجر أو تاجر..." data-search-input>
+                        <button type="button" data-action="search-trigger"><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="header-actions">
+                        <a href="#notifications" data-nav="notifications" class="action-icon"><i class="fas fa-bell"></i><span class="badge" data-badge="notifications">0</span></a>
+                        <a href="#cart" data-nav="cart" class="action-icon"><i class="fas fa-shopping-cart"></i><span class="badge" data-badge="cart">0</span></a>
+                        <a href="#account" data-nav="account" class="action-icon"><i class="fas fa-user"></i> حسابي</a>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Views Container for Customer -->
+            <main class="customer-views-container">
+
+                <!-- 3. CUSTOMER HOME -->
+                <section id="view-home" class="customer-view active" data-view="home">
+                    <!-- Main Advertisement Banner -->
+                    <div class="main-banner-slider" data-firebase-source="banners">
+                        <div class="banner-slide" data-banner-id="">
+                            <img src="" alt="إعلان رئيسي" data-banner-image>
+                            <div class="banner-caption">
+                                <h3>عروض مميزة هذا الأسبوع</h3>
+                                <p>اكتشف أفضل المنتجات من متاجر زادي</p>
+                                <a href="#offers" class="btn-gold" data-action="explore-offers">تسوق الآن</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Horizontal Categories -->
+                    <div class="horizontal-categories" data-firebase-source="categories">
+                        <h2>التصنيفات</h2>
+                        <div class="categories-slider" data-container="categories-list">
+                            <!-- Populated by app.js -->
+                        </div>
+                    </div>
+
+                    <!-- Continuous Offers Strip -->
+                    <div class="continuous-offers-strip" data-firebase-source="strips">
+                        <span>زين زادي</span>
+                        <span>عروض جديدة</span>
+                        <span>تسوق من متاجر تبرنا</span>
+                        <span>منتجات متنوعة</span>
+                    </div>
+
+                    <!-- Best Products -->
+                    <section class="products-section" data-firebase-source="best-products">
+                        <div class="section-header">
+                            <h2>أفضل المنتجات</h2>
+                            <a href="#offers" data-nav="offers">عرض الكل</a>
+                        </div>
+                        <div class="products-grid" data-container="best-products-grid">
+                            <!-- Product Card Component Template will be injected here -->
+                        </div>
+                    </section>
+
+                    <!-- Best Stores -->
+                    <section class="stores-section" data-firebase-source="best-stores">
+                        <div class="section-header">
+                            <h2>أفضل المتاجر</h2>
+                        </div>
+                        <div class="stores-grid" data-container="best-stores-grid"></div>
+                    </section>
+
+                    <!-- New Products -->
+                    <section class="products-section" data-firebase-source="new-products">
+                        <div class="section-header">
+                            <h2>منتجات جديدة</h2>
+                        </div>
+                        <div class="products-grid" data-container="new-products-grid"></div>
+                    </section>
+
+                    <!-- Discounted Products -->
+                    <section class="products-section" data-firebase-source="discounted-products">
+                        <div class="section-header">
+                            <h2>منتجات مخفضة</h2>
+                        </div>
+                        <div class="products-grid" data-container="discounted-products-grid"></div>
+                    </section>
+
+                    <!-- Recommended Products -->
+                    <section class="products-section" data-firebase-source="recommended-products">
+                        <div class="section-header">
+                            <h2>منتجات مقترحة لك</h2>
+                        </div>
+                        <div class="products-grid" data-container="recommended-products-grid"></div>
+                    </section>
+                </section>
+
+                <!-- 4. SEARCH VIEW -->
+                <section id="view-search" class="customer-view" data-view="search">
+                    <div class="search-header-container">
+                        <input type="search" placeholder="ابحث في زين زادي..." data-global-search>
+                    </div>
+                    <div class="search-results-container" data-container="search-results"></div>
+                </section>
+
+                <!-- 5. CATEGORIES VIEW -->
+                <section id="view-categories" class="customer-view" data-view="categories">
+                    <h2>التصنيفات الرئيسية والفرعية</h2>
+                    <div class="categories-grid-full" data-container="categories-full-grid"></div>
+                </section>
+
+                <!-- 6. OFFERS VIEW -->
+                <section id="view-offers" class="customer-view" data-view="offers">
+                    <h2>العروض الحصرية</h2>
+                    <div class="offers-grid" data-container="offers-grid"></div>
+                </section>
+
+                <!-- 7. STORIES VIEW (Within Offers / Home) -->
+                <div id="view-stories" class="modal-story-view" data-view="stories" style="display:none;">
+                    <div class="story-content-wrapper" data-story-id="">
+                        <button class="close-story" data-action="close-story">&times;</button>
+                        <img src="" alt="قصة المتجر" data-story-image>
+                        <div class="story-footer">
+                            <span data-story-store-name></span>
+                            <button class="btn-gold" data-action="view-story-product">شاهد المنتج</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8 & 9. PRODUCT DETAILS VIEW & PRODUCT CARD TEMPLATE STRUCTURE -->
+                <section id="view-product-details" class="customer-view" data-view="product-details">
+                    <div class="product-details-container" data-product-id="">
+                        <div class="product-gallery-section">
+                            <div class="main-image-container" data-image-container>
+                                <img src="" alt="صورة المنتج الرئيسية" data-main-image>
+                                <span class="image-counter" data-image-counter>1 / 1</span>
+                            </div>
+                            <div class="thumbnail-gallery" data-thumbnail-gallery></div>
+                        </div>
+                        <div class="product-info-section">
+                            <h1 class="product-name" data-product-name></h1>
+                            <div class="product-rating" data-product-rating><i class="fas fa-star"></i> <span data-rating-val></span> (<span data-rating-count></span> تقييم)</div>
+                            <div class="price-box">
+                                <span class="original-price" data-original-price></span>
+                                <span class="discounted-price" data-discounted-price></span>
+                                <span class="discount-percentage" data-discount-percentage></span>
+                            </div>
+                            <div class="stock-status" data-stock-status></div>
+                            <div class="store-mini-card" data-store-id="">
+                                <img src="" alt="شعار المتجر" data-store-logo>
+                                <div>
+                                    <h4 data-store-name></h4>
+                                    <span data-store-rating></span>
+                                </div>
+                                <button class="btn-outline-gold" data-action="follow-store">متابعة المتجر</button>
+                            </div>
+                            <div class="product-actions-grid">
+                                <button class="btn-whatsapp" data-action="whatsapp"><i class="fab fa-whatsapp"></i> تواصل عبر واتساب</button>
+                                <button class="btn-outline" data-action="phone"><i class="fas fa-phone"></i> اتصال</button>
+                                <button class="btn-outline" data-action="messaging"><i class="fas fa-comment"></i> مراسلة</button>
+                                <button class="btn-outline" data-action="share"><i class="fas fa-share-alt"></i> مشاركة</button>
+                                <button class="btn-outline" data-action="favorite"><i class="fas fa-heart"></i> المفضلة</button>
+                                <button class="btn-outline" data-action="compare"><i class="fas fa-exchange-alt"></i> مقارنة</button>
+                            </div>
+                            <div class="add-to-cart-box">
+                                <button class="btn-gold btn-block" data-action="add-to-cart">إضافة إلى السلة</button>
+                            </div>
+                            <div class="product-specifications-description">
+                                <h3>الوصف والمواصفات</h3>
+                                <div data-product-specifications></div>
+                                <div data-product-description></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 10. STORE DETAILS VIEW -->
+                <section id="view-store-details" class="customer-view" data-view="store-details" data-store-id="">
+                    <div class="store-cover-container">
+                        <img src="" alt="غلاف المتجر" data-store-cover>
+                    </div>
+                    <div class="store-header-info container">
+                        <img src="" alt="شعار المتجر" data-store-logo>
+                        <h1 data-store-name></h1>
+                        <p data-store-username></p>
+                        <div class="store-rating-followers">
+                            <span data-store-rating></span> | <span data-store-followers></span> متابع
+                        </div>
+                        <p data-store-description></p>
+                        <div class="store-contact-links">
+                            <a href="#" data-store-gps><i class="fas fa-map-marker-alt"></i> الموقع الجغرافي GPS</a>
+                            <a href="#" data-store-website><i class="fas fa-globe"></i> الموقع الإلكتروني</a>
+                            <a href="#" data-store-phone><i class="fas fa-phone"></i> الهاتف</a>
+                            <a href="#" data-store-whatsapp><i class="fab fa-whatsapp"></i> واتساب</a>
+                        </div>
+                        <div class="store-action-buttons">
+                            <button class="btn-gold" data-action="follow-store">متابعة المتجر</button>
+                            <button class="btn-outline" data-action="like-store"><i class="fas fa-thumbs-up"></i> إعجاب</button>
+                        </div>
+                    </div>
+                    <div class="store-tabs-content container">
+                        <div class="store-products-grid" data-container="store-products"></div>
+                        <div class="store-offers-grid" data-container="store-offers"></div>
+                    </div>
+                </section>
+
+                <!-- 11. CART VIEW -->
+                <section id="view-cart" class="customer-view" data-view="cart">
+                    <h2>سلة المشتريات</h2>
+                    <div class="cart-items-container" data-container="cart-items"></div>
+                    <div class="cart-summary" data-cart-summary>
+                        <button class="btn-gold" data-action="proceed-checkout">إتمام الشراء</button>
+                    </div>
+                </section>
+
+                <!-- 12. CHECKOUT VIEW -->
+                <section id="view-checkout" class="customer-view" data-view="checkout">
+                    <h2>إتمام الطلب والدفع</h2>
+                    <form id="checkout-form" data-firebase-action="checkout">
+                        <!-- Checkout details managed dynamically -->
+                        <button type="submit" class="btn-gold" data-action="confirm-order">تأكيد الطلب</button>
+                    </form>
+                </section>
+
+                <!-- 13. CUSTOMER ACCOUNT VIEW -->
+                <section id="view-account" class="customer-view" data-view="account">
+                    <div class="account-profile-header">
+                        <img src="" alt="صورة العميل" data-customer-avatar>
+                        <h2 data-customer-name>أحمد محمد</h2>
+                        <p data-customer-email>ahmed@example.com</p>
+                    </div>
+                    <ul class="account-menu-list">
+                        <li><a href="#orders" data-action="nav-orders"><i class="fas fa-box"></i> طلباتي</a></li>
+                        <li><a href="#favorites" data-action="nav-favorites"><i class="fas fa-heart"></i> المفضلة</a></li>
+                        <li><a href="#followed-stores" data-action="nav-followed-stores"><i class="fas fa-store"></i> المتاجر التي أتابعها</a></li>
+                        <li><a href="#evaluations" data-action="nav-evaluations"><i class="fas fa-star"></i> تقييماتي</a></li>
+                        <li><a href="#notifications" data-action="nav-notifications"><i class="fas fa-bell"></i> الإشعارات</a></li>
+                        <li><a href="#settings" data-action="nav-settings"><i class="fas fa-cog"></i> الإعدادات</a></li>
+                        <li><a href="#logout" data-action="logout" class="text-danger"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</a></li>
+                    </ul>
+                </section>
+
+            </main>
+
+            <!-- Mobile Bottom Navigation -->
+            <nav class="mobile-bottom-nav" data-component="mobile-bottom-nav">
+                <a href="#home" data-nav="home" class="nav-item active"><i class="fas fa-home"></i><span>الرئيسية</span></a>
+                <a href="#categories" data-nav="categories" class="nav-item"><i class="fas fa-th-large"></i><span>التصنيفات</span></a>
+                <a href="#offers" data-nav="offers" class="nav-item"><i class="fas fa-fire"></i><span>العروض</span></a>
+                <a href="#cart" data-nav="cart" class="nav-item"><i class="fas fa-shopping-cart"></i><span class="badge" data-badge="cart">0</span><span>السلة</span></a>
+                <a href="#account" data-nav="account" class="nav-item"><i class="fas fa-user"></i><span>حسابي</span></a>
+            </nav>
+        </div>
+
+        <!-- ================================= SELLER DASHBOARD CONTAINER ================================= -->
+        <div id="seller-dashboard-container" class="dashboard-wrapper" style="display:none;" data-dashboard="seller">
+            <aside class="dashboard-sidebar">
+                <h3>لوحة التاجر</h3>
+                <nav>
+                    <a href="#seller-home" data-seller-nav="home"><i class="fas fa-home"></i> الرئيسية</a>
+                    <a href="#seller-products" data-seller-nav="products"><i class="fas fa-box"></i> المنتجات</a>
+                    <a href="#seller-add-product" data-seller-nav="add-product"><i class="fas fa-plus-circle"></i> إضافة منتج</a>
+                    <a href="#seller-offers" data-seller-nav="offers"><i class="fas fa-tags"></i> العروض</a>
+                    <a href="#seller-stories" data-seller-nav="stories"><i class="fas fa-video"></i> القصص</a>
+                    <a href="#store-opening-request" data-seller-nav="store-opening"><i class="fas fa-store"></i> طلب فتح المتجر</a>
+                    <a href="#seller-orders" data-seller-nav="orders"><i class="fas fa-clipboard-list"></i> الطلبات</a>
+                    <a href="#seller-subscription" data-seller-nav="subscription"><i class="fas fa-credit-card"></i> الاشتراك الشهري</a>
+                    <a href="#seller-settings" data-seller-nav="settings"><i class="fas fa-cog"></i> إعدادات المتجر</a>
+                </nav>
+            </aside>
+            <main class="dashboard-main-content">
+                
+                <!-- 14. SELLER DASHBOARD HOME -->
+                <section id="view-seller-home" class="seller-view active" data-view="seller-home">
+                    <h2>لوحة تحكم التاجر</h2>
+                    <div class="stats-cards-grid">
+                        <div class="stat-card"><span>المنتجات</span><h3 data-stat="products-count">38</h3></div>
+                        <div class="stat-card"><span>المبيعات</span><h3 data-stat="sales-count">452</h3></div>
+                        <div class="stat-card"><span>الزبائن</span><h3 data-stat="customers-count">1.2k</h3></div>
+                    </div>
+                </section>
+
+                <!-- 15. ADD PRODUCT VIEW -->
+                <section id="view-seller-add-product" class="seller-view" data-view="add-product">
+                    <h2>إضافة منتج جديد</h2>
+                    <form id="add-product-form" class="dashboard-form" data-firebase-action="add-product">
+                        <div class="form-group">
+                            <label for="p-name">اسم المنتج <span class="required">*</span></label>
+                            <input type="text" id="p-name" name="productName" required data-field="productName">
+                        </div>
+                        <div class="form-group">
+                            <label for="p-main-cat">التصنيف الرئيسي <span class="required">*</span></label>
+                            <select id="p-main-cat" name="mainCategory" required data-field="mainCategory"></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="p-sub-cat">التصنيف الفرعي</label>
+                            <select id="p-sub-cat" name="subCategory" data-field="subCategory"></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="p-type">نوع المنتج</label>
+                            <input type="text" id="p-type" name="productType" data-field="productType">
+                        </div>
+                        <div class="form-group">
+                            <label for="p-specs">المواصفات</label>
+                            <textarea id="p-specs" name="specifications" data-field="specifications"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="p-desc">الوصف</label>
+                            <textarea id="p-desc" name="description" data-field="description"></textarea>
+                        </div>
+                        <div class="form-group image-upload-group">
+                            <label>الصور (منطقة الرفع - تدعم حدود الباقة لاحقاً)</label>
+                            <div class="upload-area" data-upload-area="product-images" data-max-images-dynamic="true">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>اسحب الصور هنا أو اضغط للرفع</p>
+                            </div>
+                            <div class="image-preview-container" data-image-previews></div>
+                            <div class="image-ordering-container" data-image-ordering></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="p-orig-price">السعر الأصلي</label>
+                                <input type="number" id="p-orig-price" name="originalPrice" data-field="originalPrice">
+                            </div>
+                            <div class="form-group">
+                                <label for="p-disc-price">السعر بعد الخصم</label>
+                                <input type="number" id="p-disc-price" name="discountedPrice" data-field="discountedPrice">
+                            </div>
+                            <div class="form-group">
+                                <label for="p-currency">العملة</label>
+                                <input type="text" id="p-currency" name="currency" value="USD" data-field="currency">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="p-retail-price">سعر التجزئة</label>
+                                <input type="number" id="p-retail-price" name="retailPrice" data-field="retailPrice">
+                            </div>
+                            <div class="form-group">
+                                <label for="p-wholesale-price">سعر الجملة</label>
+                                <input type="number" id="p-wholesale-price" name="wholesalePrice" data-field="wholesalePrice">
+                            </div>
+                            <div class="form-group">
+                                <label for="p-min-wholesale">أقل كمية جملة</label>
+                                <input type="number" id="p-min-wholesale" name="minWholesaleQuantity" data-field="minWholesaleQuantity">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="p-stock">المخزون</label>
+                            <input type="number" id="p-stock" name="stock" data-field="stock">
+                        </div>
+                        <div class="form-group">
+                            <label for="p-status">حالة المنتج</label>
+                            <select id="p-status" name="productStatus" data-field="productStatus">
+                                <option value="active">نشط</option>
+                                <option value="draft">مسودة</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-gold" data-action="save-product">حفظ وإضافة المنتج</button>
+                    </form>
+                </section>
+
+                <!-- 16. STORE OPENING REQUEST (Multi-Step Form) -->
+                <section id="view-store-opening-request" class="seller-view" data-view="store-opening-request">
+                    <h2>طلب فتح المتجر</h2>
+                    <form id="store-opening-form" class="multi-step-form" data-firebase-action="store-opening">
+                        <!-- Step 1: بيانات التاجر -->
+                        <div class="form-step active" data-step="1">
+                            <h3>الخطوة 1: بيانات التاجر</h3>
+                            <div class="form-group">
+                                <label for="store-merchant-name">الاسم <span class="required">*</span></label>
+                                <input type="text" id="store-merchant-name" name="merchantName" required data-field="merchantName">
+                            </div>
+                        </div>
+                        <!-- Step 2: بيانات المتجر -->
+                        <div class="form-step" data-step="2">
+                            <h3>الخطوة 2: بيانات المتجر</h3>
+                            <div class="form-group">
+                                <label for="store-title">اسم المتجر <span class="required">*</span></label>
+                                <input type="text" id="store-title" name="storeName" required data-field="storeName">
+                            </div>
+                        </div>
+                        <!-- Step 3: بيانات التواصل (Website URL إلزامي ومميز عن GPS) -->
+                        <div class="form-step" data-step="3">
+                            <h3>الخطوة 3: بيانات التواصل</h3>
+                            <div class="form-group">
+                                <label for="store-phone">رقم الهاتف <span class="required">*</span></label>
+                                <input type="tel" id="store-phone" name="phone" required data-field="phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="store-whatsapp">رقم WhatsApp <span class="required">*</span></label>
+                                <input type="tel" id="store-whatsapp" name="whatsapp" required data-field="whatsapp">
+                            </div>
+                            <div class="form-group">
+                                <label for="store-website">الموقع الإلكتروني Website URL <span class="required">*</span></label>
+                                <input type="url" id="store-website" name="websiteUrl" required placeholder="https://example.com" data-field="websiteUrl">
+                                <small class="note text-gold">ملاحظة: الموقع الإلكتروني Website URL مختلف تماماً عن GPS وموقع المتجر الجغرافي.</small>
+                            </div>
+                        </div>
+                        <!-- Step 4: الموقع وGPS -->
+                        <div class="form-step" data-step="4">
+                            <h3>الخطوة 4: الموقع وGPS</h3>
+                            <div class="form-group">
+                                <label for="store-gps">رابط الموقع الجغرافي GPS <span class="required">*</span></label>
+                                <input type="text" id="store-gps" name="gpsLocation" required data-field="gpsLocation">
+                            </div>
+                        </div>
+                        <!-- Step 5: الشعار والصور -->
+                        <div class="form-step" data-step="5">
+                            <h3>الخطوة 5: الشعار والصور</h3>
+                            <div class="form-group">
+                                <label>شعار وغلاف المتجر</label>
+                                <div class="upload-area" data-upload-area="store-branding"></div>
+                            </div>
+                        </div>
+                        <!-- Step 6: المستندات -->
+                        <div class="form-step" data-step="6">
+                            <h3>الخطوة 6: المستندات</h3>
+                            <div class="form-group">
+                                <label for="doc-id-card">صورة البطاقة (اختياري)</label>
+                                <input type="file" id="doc-id-card" name="idCard" data-field="idCard">
+                            </div>
+                            <div class="form-group">
+                                <label for="doc-commercial-reg">السجل التجاري (اختياري)</label>
+                                <input type="file" id="doc-commercial-reg" name="commercialRegister" data-field="commercialRegister">
+                            </div>
+                        </div>
+                        <div class="form-navigation-buttons">
+                            <button type="button" class="btn-outline" data-action="prev-step" style="display:none;">السابق</button>
+                            <button type="button" class="btn-gold" data-action="next-step">التالي</button>
+                            <button type="submit" class="btn-gold" data-action="submit-store-request" style="display:none;">إرسال الطلب</button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- 17. SELLER PRODUCTS -->
+                <section id="view-seller-products" class="seller-view" data-view="seller-products">
+                    <h2>منتجات المتجر</h2>
+                    <div class="seller-products-table" data-container="seller-products-list"></div>
+                </section>
+
+                <!-- 18. SELLER ORDERS -->
+                <section id="view-seller-orders" class="seller-view" data-view="seller-orders">
+                    <h2>طلبات العملاء</h2>
+                    <div class="seller-orders-container" data-container="seller-orders-list"></div>
+                </section>
+
+                <!-- 19. SELLER OFFERS -->
+                <section id="view-seller-offers" class="seller-view" data-view="seller-offers">
+                    <h2>عروض التاجر</h2>
+                    <div class="seller-offers-container" data-container="seller-offers-list"></div>
+                </section>
+
+                <!-- 20. SELLER STORIES -->
+                <section id="view-seller-stories" class="seller-view" data-view="seller-stories">
+                    <h2>قصص المتجر</h2>
+                    <div class="seller-stories-container" data-container="seller-stories-list"></div>
+                </section>
+
+                <!-- 21. SELLER SUBSCRIPTION -->
+                <section id="view-seller-subscription" class="seller-view" data-view="seller-subscription">
+                    <h2>الاشتراك الشهري والباقات</h2>
+                    <div class="subscription-plans-container" data-container="subscription-plans"></div>
+                </section>
+
+                <!-- 22. SELLER STORE SETTINGS -->
+                <section id="view-seller-settings" class="seller-view" data-view="seller-settings">
+                    <h2>إعدادات المتجر</h2>
+                    <form id="seller-settings-form" data-firebase-action="update-store-settings">
+                        <!-- Settings fields -->
+                    </form>
+                </section>
+
+            </main>
+        </div>
+
+        <!-- ================================= ADMIN & OWNER DASHBOARD CONTAINER ================================= -->
+        <div id="admin-dashboard-container" class="dashboard-wrapper admin-wrapper" style="display:none;" data-dashboard="admin">
+            <aside class="dashboard-sidebar admin-sidebar">
+                <h3>لوحة الإدارة العامة</h3>
+                <nav>
+                    <a href="#admin-dashboard" data-admin-nav="dashboard"><i class="fas5 fa-chart-line"></i> لوحة التحكم</a>
+                    <a href="#admin-users" data-admin-nav="users"><i class="fas fa-users"></i> إدارة المستخدمين</a>
+                    <a href="#admin-sellers" data-admin-nav="sellers"><i class="fas fa-user-tie"></i> إدارة التجار</a>
+                    <a href="#admin-stores" data-admin-nav="stores"><i class="fas fa-store"></i> إدارة المتاجر</a>
+                    <a href="#admin-products" data-admin-nav="products"><i class="fas fa-box-open"></i> إدارة المنتجات</a>
+                    <a href="#admin-categories" data-admin-nav="categories"><i class="fas fa-th-list"></i> إدارة التصنيفات</a>
+                    <a href="#admin-ads" data-admin-nav="ads"><i class="fas fa-ad"></i> إدارة الإعلانات</a>
+                    <a href="#admin-offers" data-admin-nav="offers"><i class="fas fa-percent"></i> إدارة العروض</a>
+                    <a href="#admin-subscriptions" data-admin-nav="subscriptions"><i class="fas fa-money-bill-wave"></i> الاشتراكات والباقات</a>
+                    <a href="#admin-employees" data-admin-nav="employees"><i class="fas fa-user-shield"></i> الموظفون والصلاحيات</a>
+                    <a href="#admin-reports" data-admin-nav="reports"><i class="fas fa-chart-bar"></i> التقارير والإحصائيات</a>
+                    <a href="#admin-complaints" data-admin-nav="complaints"><i class="fas fa-exclamation-triangle"></i> الشكاوي والبلاغات</a>
+                    <a href="#admin-settings" data-admin-nav="settings"><i class="fas fa-sliders-h"></i> إعدادات المنصة</a>
+                    <a href="#admin-security" data-admin-nav="security"><i class="fas fa-shield-alt"></i> الأمان وسجل التدقيق</a>
+                    <a href="#owner-settings" data-owner-nav="settings" class="text-gold"><i class="fas fa-crown"></i> إعدادات المالك (Owner)</a>
+                </nav>
+            </aside>
+            <main class="dashboard-main-content">
+
+                <!-- 23. ADMIN DASHBOARD -->
+                <section id="view-admin-dashboard" class="admin-view active" data-view="admin-dashboard">
+                    <h2>لوحة التحكم الرئيسية للإدارة</h2>
+                </section>
+
+                <!-- 24. USERS MANAGEMENT -->
+                <section id="view-admin-users" class="admin-view" data-view="users-management">
+                    <h2>إدارة المستخدمين</h2>
+                </section>
+
+                <!-- 25. SELLERS MANAGEMENT -->
+                <section id="view-admin-sellers" class="admin-view" data-view="sellers-management">
+                    <h2>إدارة التجار</h2>
+                </section>
+
+                <!-- 26. STORES MANAGEMENT -->
+                <section id="view-admin-stores" class="admin-view" data-view="stores-management">
+                    <h2>إدارة المتاجر</h2>
+                </section>
+
+                <!-- 27. PRODUCTS MANAGEMENT -->
+                <section id="view-admin-products" class="admin-view" data-view="products-management">
+                    <h2>إدارة المنتجات</h2>
+                </section>
+
+                <!-- 28. CATEGORIES MANAGEMENT -->
+                <section id="view-admin-categories" class="admin-view" data-view="categories-management">
+                    <h2>إدارة التصنيفات</h2>
+                </section>
+
+                <!-- 29. ADVERTISEMENTS MANAGEMENT -->
+                <section id="view-admin-ads" class="admin-view" data-view="ads-management">
+                    <h2>إدارة الإعلانات</h2>
+                </section>
+
+                <!-- 30. OFFERS MANAGEMENT -->
+                <section id="view-admin-offers" class="admin-view" data-view="offers-management">
+                    <h2>إدارة العروض</h2>
+                </section>
+
+                <!-- 31. SUBSCRIPTIONS & PLANS -->
+                <section id="view-admin-subscriptions" class="admin-view" data-view="subscriptions-management">
+                    <h2>الاشتراكات والباقات</h2>
+                </section>
+
+                <!-- 32. EMPLOYEES & PERMISSIONS -->
+                <section id="view-admin-employees" class="admin-view" data-view="employees-management">
+                    <h2>الموظفون والصلاحيات</h2>
+                </section>
+
+                <!-- 33. REPORTS & STATISTICS -->
+                <section id="view-admin-reports" class="admin-view" data-view="reports-statistics">
+                    <h2>التقارير والإحصائيات</h2>
+                </section>
+
+                <!-- 34. COMPLAINTS / REPORTS -->
+                <section id="view-admin-complaints" class="admin-view" data-view="complaints-management">
+                    <h2>الشكاوي والبلاغات</h2>
+                </section>
+
+                <!-- 35. PLATFORM SETTINGS -->
+                <section id="view-admin-settings" class="admin-view" data-view="platform-settings">
+                    <h2>إعدادات المنصة</h2>
+                </section>
+
+                <!-- 36. SECURITY / AUDIT LOG -->
+                <section id="view-admin-security" class="admin-view" data-view="security-audit">
+                    <h2>الأمان وسجل التدقيق</h2>
+                </section>
+
+                <!-- 37. OWNER SETTINGS -->
+                <section id="view-owner-settings" class="admin-view" data-view="owner-settings">
+                    <h2>إعدادات المالك (Owner Settings)</h2>
+                </section>
+
+            </main>
+        </div>
+
+    </div>
+
+    <!-- ربط ملف الجافاسكريبت الرئيسي -->
+    <script src="app.js"></script>
+</body>
+</html>
